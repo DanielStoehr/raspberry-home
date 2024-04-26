@@ -3,7 +3,7 @@ FROM node:lts as build
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm i -g pnpm & \
+RUN npm i -g pnpm && \
     pnpm install
 
 COPY . .
