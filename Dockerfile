@@ -1,9 +1,10 @@
-FROM node:lts-alpine3.12 as build
+FROM node:lts as build
 
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
+RUN npm i -g pnpm & \
+    pnpm install
 
 COPY . .
 RUN npx nx build shopping-list
