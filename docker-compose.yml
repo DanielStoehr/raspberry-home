@@ -1,7 +1,9 @@
 services:
   shopping-list:
+    platform: linux/arm/v7
     build:
       context: .
       target: shopping-list
+    image: danielstoehr/raspberry-home
     ports:
       - 8000:80
