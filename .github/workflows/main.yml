@@ -1,7 +1,7 @@
 name: Build container
 on: push
 jobs:
-  docker:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,3 +20,22 @@ jobs:
           platforms: linux/arm/v7
           push: true
           tags: danielstoehr/raspberry-home:latest
+
+  deploy:
+    name: Deploy Docker Image
+    runs-on: self-hosted
+
+    needs: build
+
+    steps:
+      - name: Pull Docker image from Docker Hub
+        run: |
+          docker pull danielstoehr/raspberry-home:latest
+
+      - name: Stop and remove existing container
+        run: |
+          docker stop raspberry-home-app || true && docker rm raspberry-home-app || true
+
+      - name: Run Docker container
+        run: |
+          docker run -d --name raspberry-home-app 8000:80 danielstoehr/raspberry-home
