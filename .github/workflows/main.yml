@@ -20,6 +20,8 @@ jobs:
           platforms: linux/arm/v7
           push: true
           tags: danielstoehr/raspberry-home:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   deploy:
     name: Deploy Docker Image
